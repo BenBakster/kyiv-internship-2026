@@ -30,6 +30,22 @@
     background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.34);
     border-left:4px solid #ffd54f; font-size:13.5px; line-height:1.5; }
   .banner b { color:#fff; }
+  .tabs { display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; }
+  .tab { appearance:none; border:1px solid rgba(255,255,255,.4); cursor:pointer; font:inherit; font-weight:700;
+    color:#fff; background:rgba(255,255,255,.12); padding:10px 18px; border-radius:12px; transition:.15s; }
+  .tab.on { background:#fff; color:var(--g1); box-shadow:0 1px 4px rgba(0,0,0,.15); }
+  .ladder { display:grid; gap:10px; margin:6px 0 4px; }
+  .lstep { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--g3);
+    border-radius:10px; padding:12px 14px; font-size:14px; }
+  .lstep b { color:var(--g1); }
+  .srow { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 12px; background:var(--card);
+    border:1px solid var(--line); border-left:4px solid var(--g3); border-radius:10px; padding:11px 14px; margin:7px 0; }
+  .srow.onco { border-left-color:#e65100; background:#fff8f1; }
+  .srow .sn { flex:1 1 60%; min-width:150px; font-weight:600; color:#243524; }
+  .srow .sb { font-weight:700; color:var(--g1); white-space:nowrap; }
+  .srow .ssub { color:var(--muted); font-size:12.5px; white-space:nowrap; }
+  .onco-badge { color:#e65100; font-weight:700; font-size:12px; }
+  .surg-rules { font-size:14px; padding-left:20px; } .surg-rules li { margin:6px 0; }
   .stats { display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
   .stat { background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.28);
     border-radius:14px; padding:13px 18px; flex:1; min-width:140px; }
@@ -87,6 +103,11 @@
   <div class="wrap">
     <h1>Інтернатура — Київ та область · розподіл 2026</h1>
     <p class="sub">Місця для лікарів-інтернів. Дані: medvacancy.moz.gov.ua, станом на 4 червня 2026.</p>
+    <div class="tabs">
+      <button class="tab on" data-tab="vac">Місця в розподілі</button>
+      <button class="tab" data-tab="surg">Хірургія: 5 пріоритетів</button>
+    </div>
+    <div id="vac-controls">
     <div class="swrow"><div class="swlab" style="margin-top:0">Регіон:</div>
       <div class="switch"><button class="sw sw-r on" data-r="kyiv">м. Київ</button><button class="sw sw-r" data-r="oblast">Київська область</button></div></div>
     <div class="swrow"><div class="swlab" style="margin-top:0">Зріз:</div>
@@ -105,10 +126,12 @@
       <div class="stat"><b id="st-specs">—</b><span>спеціальностей</span></div>
       <div class="stat"><b id="st-insts">—</b><span>закладів</span></div>
     </div>
+    </div>
   </div>
 </header>
 
 <div class="wrap">
+  <div id="tab-vac">
   
     <section class="panel" id="panel-kyiv-all"><h2>Скільки місць за спеціальностями</h2><p class="hint">Натисніть на спеціальність, щоб побачити, у яких саме закладах є місця.</p>
         <details class="spec"><summary>
@@ -1115,6 +1138,10 @@
     «Передано в ЕСРРІ» (зафіксований і заморожений на дедлайні ≈30.05). Публічний портал medvacancy показує
     лише «Активна»; цей зріз ширший. Остаточний перелік — у кабінеті ЕСРР. Джерело: medvacancy.moz.gov.ua, станом на 4 червня 2026.
   </footer>
+  </div>
+  <div id="tab-surg" hidden>
+  <h2>Хірургія в Києві — план вибору бази</h2><p class="hint">Шлях у мамологію зазвичай іде через хірургію: інтернатура з хірургії → спеціалізація з онкохірургії. Тому базу інтернатури варто брати хірургічну, а ще краще — онкохірургічну (виділені оранжевим нижче). Це публічний орієнтир; остаточний вибір — у кабінеті ЕСРР.</p><h2>Як розставити 5 пріоритетів</h2><div class="ladder"><div class="lstep"><b>№1–2 «мрії»</b> — найбажаніша / найпрестижніша база. Ставимо сміливо: якщо переб’ють за рейтингом, система просто йде нижче — нічого не втрачаємо.</div><div class="lstep"><b>№3–4 «опори»</b> — реалістичні бази з добрим потоком операцій (руками — багато).</div><div class="lstep"><b>№5 «парашут»</b> — база з найбільшим запасом місць (або хірургія в області), щоб точно отримати саме хірургію.</div></div><h2>Усі бази Києва з хірургією — 57 місць</h2><p class="hint">Оранжевим — онкологічні бази (профіль під онкохірургію/мамологію). «ЕСРРІ» = вже у системі розподілу; «Активна» = ще на порталі.</p><div class="srow onco"><span class="sn">державне некомерційне підприємство &quot;Національний інститут раку&quot; <span class="onco-badge">онко</span></span><span class="sb">18&nbsp;місць</span><span class="ssub">Активна 2 · ЕСРРІ 16</span></div><div class="srow"><span class="sn">Комунальне некомерційне підприємство &quot;Київська міська клінічна лікарня № 8&quot; виконавчого органу Київської міської ради (Київської міської державної адміністрації)</span><span class="sb">6&nbsp;місць</span><span class="ssub">Активна 5 · ЕСРРІ 1</span></div><div class="srow onco"><span class="sn">Державна установа &quot;Національний науковий центр хірургії та трансплантології імені О.О.Шалімова Національної академії медичних наук України&quot; <span class="onco-badge">онко</span></span><span class="sb">4&nbsp;місця</span><span class="ssub">Активна 4 · ЕСРРІ 0</span></div><div class="srow"><span class="sn">Комунальне некомерційне підприємство &quot;Медичний центр міста Києва&quot; виконавчого органу Київської міської ради (київської міської державної адміністрації)</span><span class="sb">4&nbsp;місця</span><span class="ssub">Активна 0 · ЕСРРІ 4</span></div><div class="srow"><span class="sn">Комунальне некомерційне підприємство «Київська міська клінічна лікарня №3» виконавчого органу Київської міської ради (Київської міської державної адміністрації)</span><span class="sb">3&nbsp;місця</span><span class="ssub">Активна 2 · ЕСРРІ 1</span></div><div class="srow"><span class="sn">КНП &quot;Київська міська клінічна лікарня №12&quot;</span><span class="sb">2&nbsp;місця</span><span class="ssub">Активна 2 · ЕСРРІ 0</span></div><div class="srow"><span class="sn">Комунальне некомерційне підприємство &quot;Київська міська клінічна лікарня № 7&quot; виконавчого органу Київської міської ради (Київської міської державної адміністрації)</span><span class="sb">2&nbsp;місця</span><span class="ssub">Активна 2 · ЕСРРІ 0</span></div><div class="srow onco"><span class="sn">ДЕРЖАВНА УСТАНОВА «НАЦІОНАЛЬНИЙ НАУКОВИЙ ЦЕНТР РАДІАЦІЙНОЇ МЕДИЦИНИ, ГЕМАТОЛОГІЇ та ОНКОЛОГІЇ Національної академії медичних наук України» <span class="onco-badge">онко</span></span><span class="sb">2&nbsp;місця</span><span class="ssub">Активна 2 · ЕСРРІ 0</span></div><div class="srow"><span class="sn">Комунальне некомерційне підприємство &quot;Київська міська клінічна лікарня швидкої медичної допомоги&quot;</span><span class="sb">2&nbsp;місця</span><span class="ssub">Активна 2 · ЕСРРІ 0</span></div><div class="srow"><span class="sn">Комунальний некомерційний заклад Київської обласної ради &quot;Київська обласна клінічна лікарня&quot;</span><span class="sb">2&nbsp;місця</span><span class="ssub">Активна 1 · ЕСРРІ 1</span></div><div class="srow"><span class="sn">Товариство з обмеженою відповідальністю &quot;КАПИТАЛ&quot;</span><span class="sb">2&nbsp;місця</span><span class="ssub">Активна 2 · ЕСРРІ 0</span></div><div class="srow"><span class="sn">Комунальне некомерційне підприємство &quot;Обласна лікарня інтенсивного лікування м.Маріуполь&quot;</span><span class="sb">2&nbsp;місця</span><span class="ssub">Активна 2 · ЕСРРІ 0</span></div><div class="srow"><span class="sn">КНП &quot;Свято - Михайлівська клінічна лікарня м. Києва&quot;</span><span class="sb">1&nbsp;місце</span><span class="ssub">Активна 1 · ЕСРРІ 0</span></div><div class="srow"><span class="sn">Комунальне некомерційне підприємство &quot;Київська міська клінічна лікарня №5&quot; виконавчого органу Київської міської ради (Київської міської державної адміністрації&quot;</span><span class="sb">1&nbsp;місце</span><span class="ssub">Активна 1 · ЕСРРІ 0</span></div><div class="srow"><span class="sn">ТОВ &quot;ГАРМОНІЯ КРАСИ&quot;</span><span class="sb">1&nbsp;місце</span><span class="ssub">Активна 1 · ЕСРРІ 0</span></div><div class="srow"><span class="sn">Комунальне некомерційне підприємство виконавчого органу Київської міської ради (Київська міська державна адміністрація) &quot;Київська міська клінічна лікарня №18&quot;</span><span class="sb">1&nbsp;місце</span><span class="ssub">Активна 1 · ЕСРРІ 0</span></div><div class="srow"><span class="sn">ДЕРЖАВНА УСТАНОВА «НАЦІОНАЛЬНИЙ НАУКОВИЙ ЦЕНТР СЕРЦЕВО-СУДИННОЇ ХІРУРГІЇ ТА СПАДКОВОЇ ПАТОЛОГІЇ ІМЕНІ М.М.АМОСОВА НАЦІОНАЛЬНОЇ АКАДЕМІЇ МЕДИЧНИХ НАУК УКРАЇНИ»</span><span class="sb">1&nbsp;місце</span><span class="ssub">Активна 1 · ЕСРРІ 0</span></div><div class="srow"><span class="sn">КОМУНАЛЬНЕ НЕКОМЕРЦІЙНЕ ПІДПРИЄМСТВО КЛІНІЧНА ЛІКАРНЯ №15 ПОДІЛЬСЬКОГО РАЙОНУ МІСТА КИЄВА ВИКОНАВЧОГО ОРГАНУ КИЇВСЬКОЇ МІСЬКОЇ РАДИ (КИЇВСЬКОЇ МІСЬКОЇ ДЕРЖАВНОЇ АДМІНІСТРАЦІЇ)</span><span class="sb">1&nbsp;місце</span><span class="ssub">Активна 0 · ЕСРРІ 1</span></div><div class="srow"><span class="sn">Комунальне некомерційне підприємство &quot;Київська міська клінічна лікарня №4&quot;</span><span class="sb">1&nbsp;місце</span><span class="ssub">Активна 1 · ЕСРРІ 0</span></div><div class="srow"><span class="sn">ДЕРЖАВНА УСТАНОВА «НАУКОВО-ПРАКТИЧНИЙ МЕДИЧНИЙ ЦЕНТР ДИТЯЧОЇ КАРДІОЛОГІЇ ТА КАРДІОХІРУРГІЇ МІНІСТЕРСТВА ОХОРОНИ ЗДОРОВ’Я УКРАЇНИ»</span><span class="sb">1&nbsp;місце</span><span class="ssub">Активна 1 · ЕСРРІ 0</span></div><h2>Правила, щоб не втратити місце</h2><ul class="surg-rules"><li>Усі 5 заявок — хірургія; різниця лише в базі. Усередині заявки: <b>спеціальність важливіша за базу</b>.</li><li>Галочку «згоден на альтернативу» краще <b>не ставити</b> (або лише в хвості): від виданої альтернативи відмовитися не можна, і вона може дати не хірургію. Надійніший «парашут» — хірургія в області.</li><li>Не ставте всі 5 на одну гіпер-престижну базу без запасу — інакше ризик вилетіти на 2-гу хвилю із залишків.</li><li>До <b>15.06</b> звірте у кабінеті ЕСРР свої бали (СБ / КРОК-1 / КРОК-2 / ОСКІ) — помилка зсуває рейтинг.</li><li>Відмова від виданого направлення = втрата інтернатури цього року.</li></ul><footer>Хірургія по Україні — ~512 місць (дефіциту немає); Київ — 57 у розподілі. Джерело: medvacancy.moz.gov.ua, станом на 4 червня 2026.</footer>
+  </div>
 </div>
 
 <script>
@@ -1132,6 +1159,16 @@
   document.querySelectorAll('.sw-r').forEach(function(b){ b.addEventListener('click', function(){ state.r=b.dataset.r; render(); }); });
   document.querySelectorAll('.sw-v').forEach(function(b){ b.addEventListener('click', function(){ state.v=b.dataset.v; render(); }); });
   render();
+
+  var tabs = document.querySelectorAll('.tab');
+  function showTab(t) {
+    tabs.forEach(function(b){ b.classList.toggle('on', b.dataset.tab===t); });
+    document.getElementById('tab-vac').hidden = (t!=='vac');
+    document.getElementById('tab-surg').hidden = (t!=='surg');
+    document.getElementById('vac-controls').hidden = (t!=='vac');
+  }
+  tabs.forEach(function(b){ b.addEventListener('click', function(){ showTab(b.dataset.tab); }); });
+  showTab('vac');
 </script>
 </body>
 </html>
